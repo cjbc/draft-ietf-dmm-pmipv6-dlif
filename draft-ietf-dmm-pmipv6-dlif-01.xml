@@ -36,7 +36,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dmm-pmipv6-dlif-00">
+<rfc category="std" docName="draft-ietf-dmm-pmipv6-dlif-01">
   <front>
     <title abbrev="PMIPv6 DMM and DLIF">Proxy Mobile IPv6 extensions for Distributed Mobility Management</title>
 
@@ -119,7 +119,7 @@
       </address>
     </author>
 
-    <date month="May" year="2018" />
+    <date month="June" year="2018" />
 
     <area>Internet</area>
 
@@ -146,11 +146,13 @@ focuses on the required extensions to effectively support simultaneously
 anchoring several flows at different distributed gateways.
       </t>
 
+<!--
       <t>
 This document introduces the concept of distributed logical interface, which is
 a software construct that allows to easily hide the change of anchor from the
 mobile node.
       </t>
+-->
 
     </abstract>
 
@@ -180,16 +182,17 @@ centralized (at least to a considerable extent).
 Current IP mobility solutions, standardized with the names of Mobile IPv6 <xref
 target="RFC6275"></xref>, or Proxy Mobile IPv6 <xref target="RFC5213"></xref>,
 just to cite the two most relevant examples, offer mobility support at the cost
-of handling operations at a cardinal point, the mobility anchor, and burdening
-it with data forwarding and control mechanisms for a great amount of users. As
-stated in <xref target="RFC7333"></xref>, centralized mobility solutions are
-prone to several problems and limitations: longer (sub-optimal) routing paths,
-scalability problems, signaling overhead (and most likely a longer associated
-handover latency), more complex network deployment, higher vulnerability due to
-the existence of a potential single point of failure, and lack of granularity on
-the mobility management service (i.e., mobility is offered on a per-node basis,
-not being possible to define finer granularity policies, as for example
-per-application).
+of handling operations at a cardinal point, the mobility anchor (i.e., the home
+agent for Mobile IPv6, and the local mobility anchor for Proxy Mobile IPv6), and
+burdening it with data forwarding and control mechanisms for a great amount of
+users. As stated in <xref target="RFC7333"></xref>, centralized mobility
+solutions are prone to several problems and limitations: longer (sub-optimal)
+routing paths, scalability problems, signaling overhead (and most likely a
+longer associated handover latency), more complex network deployment, higher
+vulnerability due to the existence of a potential single point of failure, and
+lack of granularity on the mobility management service (i.e., mobility is
+offered on a per-node basis, not being possible to define finer granularity
+policies, as for example per-application).
       </t>
 
       <t>
@@ -226,6 +229,20 @@ from any route management and MN's data forwarding task.
     </section>
 
     <section anchor="sec:terminology" title="Terminology">
+
+<!-- [2018-06-27] cjbc: comment from Alex:
+> Overall, you have:
+> - Serving MAAR
+> - Previous MAAR
+> - [non-active] anchoring MAAR
+> - active anchoring MAAR
+> 
+> Not sure which is which since the latter two are not defined in
+> Terminology.
+
+[Carlos] This is a good point. We will clarify this in the terminology
+section of the next revision.
+-->
 
       <t>
 The following terms used in this document are defined in the Proxy Mobile IPv6
@@ -277,7 +294,7 @@ Home-DPA and Access-CPN.
 
           <t hangText="CMD (Central Mobility Database).">
 Node that stores the BCEs allocated for the MNs in the mobility domain. It plays
-the role of Home-CPA.
+the role of H-CPA.
           </t>
 
           <t hangText="P-MAAR (Previous MAAR).">
@@ -304,10 +321,10 @@ as multiple routers, one per active anchoring MAAR.
 
     </section>
 
-    <section anchor="sec:pmipv6_based" title="PMIPv6 DMM extenstions">
+    <section anchor="sec:pmipv6_based" title="PMIPv6 DMM extensions">
 
       <t>
-The solution consists in de-coupling the entities that participates in the data
+The solution consists in de-coupling the entities that participate in the data
 and the control planes: the data plane becomes distributed and managed by the
 MAARs near the edge of the network, while the control plane, besides on the
 MAARs, relies on a central entity called Central Mobility Database (CMD). In the
@@ -319,7 +336,7 @@ preserved, but with the following substantial variations:
           <t>
 The LMA is relieved from the data forwarding role, only the Binding Cache and
 its management operations are maintained. Hence the LMA is renamed into Central
-Mobility Database (CMD), which is therefore a Home-CPA. Also, the CMD is able to
+Mobility Database (CMD), which is therefore an H-CPA. Also, the CMD is able to
 send and parse both PBU and PBA messages.
           </t>
 
@@ -381,25 +398,34 @@ prefix to gain route optimization, as indicated in <xref
 target="I-D.ietf-dmm-ondemand-mobility" />.
       </t>
 
+      <t>
+Note that an MN MAY move across diferent MAARs, which might involve that several
+P-MAARs exist at a given moment of time, each of them anchoring a prefix used by
+the MN.
+      </t>
+
+
 
       <section anchor="subsec:init" title="Initial registration">
 
         <t>
 Upon the MN's attachment to a MAAR, say MAAR1, if the MN is authorized for the
 service, an IPv6 global prefix belonging to the MAAR's prefix pool is reserved
-for it (Pref1) into a temporal Binding Cache Entry (BCE) allocated locally. The
+for it (Pref1) into a temporary Binding Cache Entry (BCE) allocated locally. The
 prefix is sent in a <xref target="RFC5213" /> PBU with the MN's Identifier
 (MN-ID) to the CMD, which, since the session is new, stores a permanent BCE
 containing as main fields the MN-ID, the MN's prefix and MAAR1's address as
 Proxy-CoA. The CMD replies to MAAR1 with a PBA including the usual options
 defined in PMIP/RFC5213, meaning that the MN's registration is fresh and no past
-status is available. MAAR1 definitely stores the temporal BCE previously
+status is available. MAAR1 definitely stores the temporary BCE previously
 allocated and unicasts a Router Advertisement (RA) to the MN including the
 prefix reserved before, that can be used by the MN to configure an IPv6 address
-(e.g., with stateless auto-configuration). The address is routable at the MAAR,
-in the sense that it is on the path of packets addressed to the MN. Moreover,
-the MAAR acts as plain router for those packets, as no encapsulation nor special
-handling takes place. <xref target="fig:DMM_1" /> illustrates this scenario.
+(e.g., with stateless auto-configuration, SLAAC). Alternative IPv6
+auto-configuration mechanisms can also be used, though this document describe
+the SLAAC-based one. The address is routable at the MAAR, in the sense that it
+is on the path of packets addressed to the MN. Moreover, the MAAR acts as plain
+router for those packets, as no encapsulation nor special handling takes place.
+<xref target="fig:DMM_1" /> illustrates this scenario.
         </t>
 
         <figure anchor="fig:DMM_1" title="First attachment to the network">
@@ -434,7 +460,7 @@ detection        |         flow1 *       / +-+-+ \
 
         <t>
 When the MN moves from its current access and associates to MAAR2 (now the
-S-MAAR), MAAR2 reserves another IPv6 prefix (Pref2), it stores a temporal BCE,
+S-MAAR), MAAR2 reserves another IPv6 prefix (Pref2), it stores a temporary BCE,
 and it sends a plain PBU to the CMD for registration. Upon PBU reception and BC
 lookup, the CMD retrieves an already existing entry for the MN, binding the
 MN-ID to its former location; thus, the CMD forwards the PBU to the MAAR
@@ -454,7 +480,7 @@ of the P-MAAR list. The P-MAAR list is an additional field on the BCE that
 contains an element for each P-MAAR involved in the MN's mobility session. The
 list element contains the P-MAAR's global address and the prefix it has
 delegated (see <xref target="sec:appx2"></xref> for further details). Also, the
-CMD send a PBA to the new S-MAAR, containing the previous Proxy-CoA and the
+CMD sends a PBA to the new S-MAAR, containing the previous Proxy-CoA and the
 prefix anchored to it embedded into a new mobility option called Previous MAAR
 Option (defined in <xref target="subsec:pmaaropt"></xref>), so that, upon PBA
 arrival, a bi-directional tunnel can be established between the two MAARs and
@@ -484,7 +510,7 @@ and downlink. The procedure is depicted in <xref target="fig:DMM2" />.
    |           |<-- PBU ---|           *      /    |    \  *
    |          BCE          |           *     /     | *******
    |        check+         |           *    /      | *    \
-   |        update         |       +---*-+-?    +--+-*+    `+-----+
+   |        update         |       +---*-+-'    +--+-*+    `+-----+
    |<-- PBU*---|           |       |   * |      |    *|     |     |
 route          |           |       |MAAR1|______|MAAR2+-----+MAAR3|
 update         |           |       |   **(______)**  *|     |     |
@@ -497,7 +523,7 @@ update         |           |       |   **(______)**  *|     |     |
 
       Operations sequence                  Data Packets flow
 PBU/PBA Messages with * contain
-        a new mobility option
+     a new mobility option
 ]]></artwork>
         </figure>
 
@@ -529,13 +555,13 @@ the remaining are sent later upon their arrival.
         <t>
 The handover latency experienced in the approach shown before can be reduced if
 the P-MAARs are allowed to signal directly their information to the new S-MAAR.
-This procedure reflect what was described in <xref target="subsec:relay" /> up
+This procedure reflects what was described in <xref target="subsec:relay" /> up
 to the moment the P-MAAR receives the PBU with the P-MAAR option. At that point
 a P-MAAR is aware of the new MN's location (because of the S-MAAR's address in
 the S-MAAR option), and, besides sending a PBA to the CMD, it also sends a PBA
 to the S-MAAR including the prefix it is anchoring. This latter PBA does not
 need to include new options, as the prefix is embedded in the HNP option and the
-P-MAAR's address OS taken from the message's source address. The CMD is relieved
+P-MAAR's address is taken from the message's source address. The CMD is relieved
 from forwarding the PBA to the S-MAAR, as the latter receives a copy directly
 from the P-MAAR with the necessary information to build the tunnels and set the
 appropriate routes. In <xref target="fig:DMM3" /> is illustrated the new
@@ -555,7 +581,7 @@ messages sequence, while the data forwarding is unaltered.
    |           |<-- PBU ---|           *      /    |    \  *
    |          BCE          |           *     /     | *******
    |        check+         |           *    /      | *    \
-   |        update         |       +---*-+-?    +--+-*+    `+-----+
+   |        update         |       +---*-+-'    +--+-*+    `+-----+
    |<-- PBU*---|           |       |   * |      |    *|     |     |
 route          |           |       |MAAR1|______|MAAR2+-----+MAAR3|
 update         |           |       |   **(______)**  *|     |     |
@@ -568,7 +594,7 @@ update         |           |       |   **(______)**  *|     |     |
                                                                     
        Operations sequence                  Data Packets flow
 PBU/PBA Messages with * contain
-        a new mobility option
+     a new mobility option
 ]]></artwork>
         </figure>
       </section>
@@ -579,7 +605,7 @@ PBU/PBA Messages with * contain
 A further enhancement of previous solutions can be achieved when the CMD sends
 the PBA to the new S-MAAR before notifying the P-MAARs of the location change.
 Indeed, when the CMD receives the PBU for the new registration, it is already in
-possess of all the information that the new S-MAAR requires to set up the
+possession of all the information that the new S-MAAR requires to set up the
 tunnels and the routes. Thus the PBA is sent to the S-MAAR immediately after a
 PBU is received, including also in this case the P-MAAR option. In parallel, a
 PBU is sent by the CMD to the P-MAARs containing the S-MAAR option, to notify
@@ -605,7 +631,7 @@ target="fig:DMM4"></xref>, where, again, the data forwarding is kept untouched.
    |           |<-- PBU ---|           *      /    |    \  *
    |          BCE          |           *     /     | *******
    |        check+         |           *    /      | *    \
-   |        update         |       +---*-+-?    +--+-*+    `+-----+
+   |        update         |       +---*-+-'    +--+-*+    `+-----+
    |<-- PBU*---x--- PBA*-->|       |   * |      |    *|     |     |
 route          |         route     |MAAR1|______|MAAR2+-----+MAAR3|
 update         |         update    |   **(______)**  *|     |     |
@@ -618,15 +644,15 @@ update         |         update    |   **(______)**  *|     |     |
                                                                   
        Operations sequence                 Data Packets flow
 PBU/PBA Messages with * contain
-        a new mobility option
+     a new mobility option
 ]]></artwork>
         </figure>
       </section>
 
       <section anchor="subsec:dereg" title="De-registration">
         <t>
-The de-registration mechanism devised for PMIPv6 is no longer valid in the
-Partial DMM architecture. This is motivated by the fact that each MAAR handles
+The de-registration mechanism devised for PMIPv6 cannot be used as is in this
+solution. This is motivated by the fact that each MAAR handles
 an independent mobility session (i.e., a single or a set of prefixes) for a
 given MN, whereas the aggregated session is stored at the CMD. Indeed, when a
 previous MAAR initiates a de-registration procedure, because the MN is no longer
@@ -669,11 +695,11 @@ Interface (DLIF) concept">
         <t>
 One of the main challenges of a network-based DMM solution is how to allow a
 mobile node to simultaneously send/receive traffic which is anchored at
-different MAARs, and how to influence on the preference of the mobile selecting
-the source IPv6 address for a new communication, without requiring special
-support on the mobile node stack. This document defines the Distributed Logical
-Interface (DLIF), which is a software construct that allows to easily hide the
-change of anchor from the mobile node.
+different MAARs, and how to influence on the preference of the mobile node
+selecting the source IPv6 address for a new communication, without requiring
+special support on the mobile node stack. This document defines the Distributed
+Logical Interface (DLIF), which is a software construct that allows to easily
+hide the change of anchor from the mobile node.
         </t>
 
       <figure anchor="fig:exposing_multiple_routers"
@@ -718,8 +744,8 @@ addresses (e.g., prefA::MAAR1/64 and fe80:211:22ff:fe33:101/64) using the DLIF
 mn1mar1. As explained below, these addresses represent the "logical" identity of
 MAAR1 towards MN1, and will "follow" the mobile node while roaming within the
 domain (note that the place where all this information is maintained and updated
-is out-of-scope of this draft; potential examples are to keep it on the HSS or
-the user's profile).
+is out-of-scope of this draft; potential examples are to keep it on the home
+subscriber server -- HSS -- or the user's profile).
         </t>
 
         <t>
@@ -780,19 +806,19 @@ As introduced before, each MN always "sees" multiple logical routers -- one per
 active anchoring MAAR -- independently of to which serving MAAR the MN is
 currently attached. From the point of view of the MN, these MAARs are portrayed
 as different routers, although the MN is physically attached to one single
-interface . The way this is achieved is by the serving MAAR configuring
+interface. The way this is achieved is by the serving MAAR configuring
 different logical interfaces. If we focus on MN1, it is currently attached to
 MAAR2 (i.e., MAAR2 is its serving MAAR) and, therefore, it has configured an
 IPv6 address from MAAR2's pool (e.g., prefB::/64). MAAR2 has set-up a logical
-interface (mn1dgw2) on top of its wireless physical interface (phy if MAAR2)
+interface (mn1mar2) on top of its wireless physical interface (phy if MAAR2)
 which is used to serve MN1. This interface has a logical MAC address (LMAC6),
 different from the hardware MAC address (HMAC2) of the physical interface of
-MAAR2. Over the mn1dgw2 interface, MAAR2 advertises its locally anchored prefix
+MAAR2. Over the mn1mar2 interface, MAAR2 advertises its locally anchored prefix
 prefB::/64. Before attaching to MAAR2, MN1 visited MAAR1, configuring also an
 address locally anchored at this MAAR, which is still being used by the MN1 in
 active communications. MN1 keeps "seeing" an interface connecting to MAAR1, as
 if it were directly connected to the two MAARs. This is achieved by the serving
-MAAR (MAAR1) configuring an additional distributed logical interface: mn1dgw1,
+MAAR (MAAR2) configuring an additional distributed logical interface: mn1mar1,
 which behaves exactly as the logical interface configured by the actual MAAR1
 when MN1 was attached to it. This means that both the MAC and IPv6 addresses
 configured on this logical interface remain the same regardless of the physical
@@ -807,10 +833,12 @@ logical interfaces associated to each attached MN, having always at least one
         <t>
 In order to enforce the use of the prefix locally anchored at the serving MAAR,
 the router advertisements sent over those logical interfaces playing the role of
-anchoring MAARs (different from the serving one) include a zero prefix lifetime.
-The goal is to deprecate the prefixes delegated by these MAARs (which will be no
-longer serving the MN). Note that on-going communications keep on using those
-addresses, even if they are deprecated, so this only affects to new sessions.
+anchoring MAARs (different from the serving one) include a zero preferred prefix
+lifetime (and a non-zero valid prefix lifetime, so the prefix remains valid,
+while being deprecated). The goal is to deprecate the prefixes delegated by
+these MAARs (which will be no longer serving the MN). Note that on-going
+communications keep on using those addresses, even if they are deprecated, so
+this only affects to new sessions.
         </t>
 
         <t>
@@ -819,7 +847,7 @@ Suppose that access to a local IP network is provided by a given MAAR (e.g.,
 MAAR1 in the example shown in <xref target="fig:exposing_multiple_routers" />)
 and that the resources available at that network cannot be reached from outside
 the local network (e.g., cannot be accessed by an MN attached to MAAR2). This is
-similar to the LIPA scenario currently being consider by 3GPP. The goal is to
+similar to the local IP access scenario considered by 3GPP. The goal is to
 allow an MN to be able to roam while still being able to have connectivity to
 this local IP network. The solution adopted to support this case makes use of
 RFC 4191 <xref target="RFC4191" /> more specific routes when the MN moves to a
@@ -835,13 +863,10 @@ supported, even though MN1 is no longer attached to MAAR1.
 
       </section>
 
+    </section>
+    <!-- end of section "PMIPv6-based" -->
 
-
-
-
-
-      <section anchor="subsec:messages" title="Message Format">
-
+    <section anchor="subsec:messages" title="Message Format">
 
         <t>
 This section defines extensions to the Proxy Mobile IPv6 <xref target="RFC5213"
@@ -1217,7 +1242,7 @@ A sixteen-byte field containing the IPv6 Local Prefix.
           <t>Length <list>
               <t>8-bit unsigned integer indicating the length of the option in
               octets, excluding the type and length fields. This field MUST be
-              set to 34.</t>
+              set to 33.</t>
             </list></t>
 
           <t>Prefix Length <list>
@@ -1434,7 +1459,7 @@ DLIF Link-layer Address
 
               <t>
 A variable length field containing the link-layer address of the logical
-interface to be configured on the serving distributed gateway.
+interface to be configured on the S-MAAR.
               </t>
 
               <t>
@@ -1450,11 +1475,9 @@ cannot be determined, this option cannot be used.
 
         </section>
 
-      </section>
-
     </section>
 
-    <!-- end of section "PMIPv6-based" -->
+    <!-- end of section "Message format" -->
 
 
     <section anchor="IANA" title="IANA Considerations">
@@ -1485,9 +1508,11 @@ related to the impersonation of a MAAR.
     <section anchor="Acknowledgments" title="Acknowledgments">
 
       <t>
-The authors would like to thank Marco Liebsch for his comments and discussion on
-the documents <xref target="I-D.bernardos-dmm-distributed-anchoring" /> and
-<xref target="I-D.bernardos-dmm-pmip" /> on which the present document is based.
+The authors would like to thank Marco Liebsch, Dirk von Hugo, Alex Petrescu,
+Daniel Corujo, Akbar Rahman, Danny Moses, Xinpeng Wei and Satoru Matsushima for
+their comments and discussion on the documents <xref
+target="I-D.bernardos-dmm-distributed-anchoring" /> and <xref
+target="I-D.bernardos-dmm-pmip" /> on which the present document is based.
       </t>
 
       </section>
@@ -1518,7 +1543,7 @@ the documents <xref target="I-D.bernardos-dmm-distributed-anchoring" /> and
 
 	<section anchor="sec:appx1" title="Comparison with Requirement document">
 	<t>
-In this section we descrbe how our solution addresses the DMM requirements
+In this section we describe how our solution addresses the DMM requirements
 listed in <xref target="RFC7333"></xref>.
 	</t>
 
@@ -1598,14 +1623,16 @@ signaling, forwarding, and network access are allowed by the trust relationship
 between them"
 	</t>
 	<t>
-The partially DMM solution can be extended to provide a fallback mechanism to
-operate as legacy Proxy Mobile IPv6. It is necessary to instruct MAARs to always
-establish a tunnel with the same MAAR, working as LMA. The fully DMM solution
-can be extended as well, but it requires more intervention. The partially DMM
-solution can be deployed across different domains with trust agreements if the
-CMDs ot the operators are enabled to transfer context from one node to another.
-The fully DMM solution works across multiple domains if both solution apply the
-same signalling scheme.
+The partially distributed DMM solution (distributed data plane and centralized
+control plane) can be extended to provide a fallback mechanism to operate as
+legacy Proxy Mobile IPv6. It is necessary to instruct MAARs to always establish
+a tunnel with the same MAAR, working as LMA. The fully distributed DMM solution
+(distributed data and control plane) can be extended as well, but it requires
+more intervention. The partially distributed DMM solution can be deployed across
+different domains with trust agreements if the CMDs of the operators are enabled
+to transfer context from one node to another. The fully distributed DMM solution
+works across multiple domains if the same signalling scheme is used in both
+domains.
 	</t>	
 	</section>
 
@@ -1684,7 +1711,7 @@ tunnels established with them. Conversely, a previous MAAR only needs to know
 which is the current Serving MAAR and establish a single tunnel with it. For
 this reason, a MAAR that receives a PBU from the CMD (meaning that the MN
 attached to another MAAR), first sets up the routing state for the MN's
-prefix(es) it is anchoring, then stop the BCE expiry timer and deletes the MAAR
+prefix(es) it is anchoring, then stops the BCE expiry timer and deletes the MAAR
 list (if present) since it is no longer useful.
       </t>
 
@@ -1744,7 +1771,7 @@ network to deliver through a pure centralized architecture. The need to provide
 networking, computing, and storage capabilities closer to the users has
 therefore emerged, leading to what is known today as the concept of intelligent
 edge. ETSI has been the first to address this need recently by developing the
-framework of mobile edge computing (MEC).
+framework of multi-access edge computing (MEC).
       </t>
 
       <t>
@@ -1773,7 +1800,7 @@ devices. These resources are therefore owned by different stakeholders who
 collaboratively form a single hosting environment for the VNFs to run. As an
 example, virtual resources provided to the fog might be running on eNBs, APs, at
 micro data centers deployed in shopping malls, cars, trains, etc. The fog is
-connected to data centers deeper into the network architecture (at the edge ir
+connected to data centers deeper into the network architecture (at the edge or
 the core).
       </t>
 
