@@ -5,13 +5,13 @@
 DMM Working Group                                          CJ. Bernardos
 Internet-Draft                                            A. de la Oliva
 Intended status: Standards Track                                    UC3M
-Expires: December 29, 2018                                      F. Giust
+Expires: December 31, 2018                                      F. Giust
                                                                      NEC
                                                               JC. Zuniga
                                                                   SIGFOX
                                                                A. Mourad
                                                             InterDigital
-                                                           June 27, 2018
+                                                           June 29, 2018
 
 
     Proxy Mobile IPv6 extensions for Distributed Mobility Management
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 1]
+Bernardos, et al.       Expires December 31, 2018               [Page 1]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -66,7 +66,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 29, 2018.
+   This Internet-Draft will expire on December 31, 2018.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 2]
+Bernardos, et al.       Expires December 31, 2018               [Page 2]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -165,7 +165,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 3]
+Bernardos, et al.       Expires December 31, 2018               [Page 3]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -221,7 +221,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 4]
+Bernardos, et al.       Expires December 31, 2018               [Page 4]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -277,7 +277,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 5]
+Bernardos, et al.       Expires December 31, 2018               [Page 5]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -333,7 +333,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 6]
+Bernardos, et al.       Expires December 31, 2018               [Page 6]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -389,7 +389,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 7]
+Bernardos, et al.       Expires December 31, 2018               [Page 7]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -445,7 +445,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 8]
+Bernardos, et al.       Expires December 31, 2018               [Page 8]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -501,7 +501,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018               [Page 9]
+Bernardos, et al.       Expires December 31, 2018               [Page 9]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -557,7 +557,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 10]
+Bernardos, et al.       Expires December 31, 2018              [Page 10]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -613,7 +613,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 11]
+Bernardos, et al.       Expires December 31, 2018              [Page 11]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -669,7 +669,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 12]
+Bernardos, et al.       Expires December 31, 2018              [Page 12]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -725,7 +725,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 13]
+Bernardos, et al.       Expires December 31, 2018              [Page 13]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -781,7 +781,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 14]
+Bernardos, et al.       Expires December 31, 2018              [Page 14]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -837,7 +837,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 15]
+Bernardos, et al.       Expires December 31, 2018              [Page 15]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -893,7 +893,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 16]
+Bernardos, et al.       Expires December 31, 2018              [Page 16]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -949,7 +949,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 17]
+Bernardos, et al.       Expires December 31, 2018              [Page 17]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 18]
+Bernardos, et al.       Expires December 31, 2018              [Page 18]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 19]
+Bernardos, et al.       Expires December 31, 2018              [Page 19]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 20]
+Bernardos, et al.       Expires December 31, 2018              [Page 20]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 21]
+Bernardos, et al.       Expires December 31, 2018              [Page 21]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 22]
+Bernardos, et al.       Expires December 31, 2018              [Page 22]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 23]
+Bernardos, et al.       Expires December 31, 2018              [Page 23]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 24]
+Bernardos, et al.       Expires December 31, 2018              [Page 24]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1397,7 +1397,7 @@ A.1.  Distributed mobility management
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 25]
+Bernardos, et al.       Expires December 31, 2018              [Page 25]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1453,7 +1453,7 @@ A.4.  Existing mobility protocols
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 26]
+Bernardos, et al.       Expires December 31, 2018              [Page 26]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1509,7 +1509,7 @@ A.7.  Security considerations
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 27]
+Bernardos, et al.       Expires December 31, 2018              [Page 27]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1565,7 +1565,7 @@ Appendix B.  Implementation experience
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 28]
+Bernardos, et al.       Expires December 31, 2018              [Page 28]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1621,7 +1621,7 @@ Appendix C.  Applicability to the fog environment
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 29]
+Bernardos, et al.       Expires December 31, 2018              [Page 29]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 30]
+Bernardos, et al.       Expires December 31, 2018              [Page 30]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1733,7 +1733,7 @@ Authors' Addresses
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 31]
+Bernardos, et al.       Expires December 31, 2018              [Page 31]
 
 Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
@@ -1789,4 +1789,4 @@ Internet-Draft             PMIPv6 DMM and DLIF                 June 2018
 
 
 
-Bernardos, et al.       Expires December 29, 2018              [Page 32]
+Bernardos, et al.       Expires December 31, 2018              [Page 32]
