@@ -75,17 +75,9 @@
     </author>
 
     <author fullname="Fabio Giust" initials="F." surname="Giust">
-     <organization abbrev="NEC">NEC Laboratories Europe</organization>
+     <organization abbrev="Athonet">Athonet S.r.l.</organization>
       <address>
-        <postal>
-          <street>NEC Europe Ltd.</street>
-          <street>Kurfuersten-Anlage 36</street>
-          <city>Heidelberg</city>
-          <code>D-69115</code>
-          <country>Germany</country>
-        </postal>
-        <phone>+49 6221 4342216</phone>
-        <email>fabio.giust@neclab.eu</email>
+        <email>fabio.giust.2011@ieee.org</email>
       </address>
     </author>    
 
